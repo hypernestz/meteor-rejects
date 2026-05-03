@@ -40,6 +40,7 @@ public class OreSim extends Module {
     private Seed worldSeed = null;
     private Map<ResourceKey<Biome>, List<Ore>> oreConfig;
     public List<BlockPos> oreGoals = new ArrayList<>();
+    private long lastLogTime = 0;
 
     public enum AirCheck {
         ON_LOAD,
@@ -150,6 +151,11 @@ public class OreSim extends Module {
                     oreGoals.addAll(this.addToBaritone(x, chunkPos.z - range + rangeVal + 1));
                 }
             }
+        }
+
+        // In tọa độ quặng ra log để Python đọc
+        for (BlockPos pos : oreGoals) {
+            System.out.println("[AI_SCAN] Found ore at: " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
         }
     }
 
